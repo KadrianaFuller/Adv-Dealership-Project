@@ -44,6 +44,7 @@ public class UserInterface {
     }
 
     private void saleOrLease() {
+
     }
 
     public void processAllVehiclesRequest() {
@@ -153,9 +154,11 @@ public class UserInterface {
 
     public void processRemoveVehicleRequest() {
 
+
     }
 
     private void searchCriteria() {
+
     }
 
     public void displayMenu() {
