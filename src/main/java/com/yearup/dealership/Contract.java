@@ -1,19 +1,23 @@
 package com.yearup.dealership;
 
 public abstract class Contract {
-    private String date, customerName, customerEmail, vehicleSold;
+    private String date, customerName, customerEmail;
+    protected Vehicle vehicleSold;
     private double totalPrice, monthlyPayment;
 
-    public Contract(String date, String customerName, String customerEmail, String vehicleSold) {
+    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment) {
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
+        this.totalPrice = totalPrice;
+        this.monthlyPayment = monthlyPayment;
     }
 
     abstract double getTotalPrice();
 
     abstract double getMonthlyPayment();
+
     public String getDate() {
         return date;
     }
@@ -23,6 +27,7 @@ public abstract class Contract {
     }
 
     public String getCustomerName() {
+
         return customerName;
     }
 
@@ -31,18 +36,22 @@ public abstract class Contract {
     }
 
     public String getCustomerEmail() {
+
         return customerEmail;
     }
 
     public void setCustomerEmail(String customerEmail) {
+
         this.customerEmail = customerEmail;
     }
 
-    public String getVehicleSold() {
+    public Vehicle getVehicleSold() {
+
         return vehicleSold;
     }
 
-    public void setVehicleSold(String vehicleSold) {
+    public void setVehicleSold(Vehicle vehicleSold) {
+
         this.vehicleSold = vehicleSold;
     }
 }

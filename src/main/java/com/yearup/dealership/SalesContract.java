@@ -7,8 +7,8 @@ public class SalesContract extends Contract {
     private double processingFee;
     private boolean wantToFinance;
 
-    public SalesContract(String date, String customerName, String customerEmail, String vehicleSold, double saleTaxAmount, double recordingFee, double processingFee, boolean wantToFinance) {
-        super(date, customerName, customerEmail, vehicleSold);
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment, double saleTaxAmount, double recordingFee, double processingFee, boolean wantToFinance) {
+        super(date, customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
         this.saleTaxAmount = saleTaxAmount;
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
@@ -63,12 +63,22 @@ public class SalesContract extends Contract {
         }
         double totalPrice = getTotalPrice();
         double interestRate;
+        int loanTerm;
 
-        if(getTotalPrice() >= 10000){
-            interestRate = 0.0425;
+        if(totalPrice >= 10000){
+            interestRate = 0.0425 ;
+            loanTerm = 48;
         }else {
-            interestRate =0.0525;
+            interestRate =0.0525 ;
+            loanTerm = 24;
         }
+        double monthlyInterestRate = interestRate /12;
+
+        double monthlyPayment = (totalPrice * monthlyInterestRate) /
+                (1 - Math.pow(1 + monthlyInterestRate, - loanTerm));
+
+        return monthlyPayment;
+
 
 
     }
