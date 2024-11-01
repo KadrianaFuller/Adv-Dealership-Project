@@ -8,10 +8,10 @@ public class ContractFileManager {
 
     public void saveContract(Contract contract) {
         String filePath = "contracts.txt";
-        FileWriter fileWriter = null;
+        
 
         try {
-            fileWriter = new FileWriter(filePath, true);
+            FileWriter fileWriter = new FileWriter(filePath, true);
 
             String lineToWrite;
 
@@ -39,17 +39,12 @@ public class ContractFileManager {
             }
 
             fileWriter.write(lineToWrite);
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Close the FileWriter outside the try-catch block.
-        if (fileWriter != null) {
-            try {
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        
         }
     }
 
@@ -57,4 +52,4 @@ public class ContractFileManager {
 
 
 
-}
+
