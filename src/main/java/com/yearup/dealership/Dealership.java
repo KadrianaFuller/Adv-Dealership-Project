@@ -6,23 +6,44 @@ import java.util.List;
 public class Dealership {
     private String name, address, phone;
     private final List<Vehicle> vehicles;
+    private final List<Contract> contracts; // holds contracts
 
     public Dealership(String name, String address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.vehicles = new ArrayList<>();
+        this.contracts = new ArrayList<>();
+
     }
-    public Dealership () {
-        vehicles = new ArrayList<>();
+    public Dealership(String name, String address, String phone, List<Vehicle> vehicles, List<Contract> contracts) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.vehicles = vehicles;
+        this.contracts = contracts;
     }
+
+
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
     }
 
-    public List<Vehicle> getAllVehicles () {
+    public List<Vehicle> getAllVehicles() {
         return vehicles;
     }
+
+    public Vehicle getVehicleByVin(String vin) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getVin().equalsIgnoreCase(vin)) {
+                System.out.println(vehicle);
+                return vehicle;
+            }
+        }
+        System.out.println("Vehicle with VIN " + vin + " not found.");
+        return null;
+    }
+
 
     public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
         List<Vehicle> filteredVehicles = new ArrayList<>();
@@ -107,5 +128,21 @@ public class Dealership {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void addContract(Contract contract) {
+        contracts.add(contract);
+        System.out.println("Contract added successfully.");
+    }
+
+    public void removeVehicle(String vin) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getVin().equalsIgnoreCase(vin)) {
+                vehicles.remove(vehicle);
+                System.out.println("Vehicle with VIN " + vin + " has been removed.");
+                return; // Exit the method after removing the vehicle
+            }
+        }
+        System.out.println("Vehicle with VIN " + vin + " not found.");
     }
 }
