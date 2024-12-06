@@ -268,13 +268,40 @@ public class UserInterface {
     }
 
     public void processRemoveVehicleRequest() {
+        System.out.println("Please enter the Vin of the vehicle you would like to remove: ");
+        String vehicleVin = scan.nextLine();
+        boolean vehicleMatch = false;
 
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicleVin == vehicle.getVin()) {
+                vehicleMatch = true;
+                dealership.removeVehicle(vehicleVin);
+                System.out.println("Vehicle has been removed!");
+                DealershipFileManager.saveDealership(dealership);
+                break;
+            }
+        }
 
     }
 
     private void searchCriteria() {
-
-    }
+        System.out.println("""
+                1.Search by Price
+                2.Search by Make/Model
+                3.Search by Year
+                4.Search by Color
+                5.Search by Mileage
+                6.Search by Vehicle Type\n""");
+        int searchOption = scan.nextInt();
+        switch (searchOption) {
+            case 1 -> processGetByPriceRequest();
+            case 2 -> processGetByMakeModelRequest();
+            case 3 -> processGetByYearRequest();
+            case 4 -> processGetByColorRequest();
+            case 5 -> processGetByMileageRequest();
+            case 6 -> processGetByVehicleTypeRequest();
+        }
+        }
 
     public void displayMenu() {
         System.out.println("""

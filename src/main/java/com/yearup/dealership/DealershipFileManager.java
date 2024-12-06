@@ -1,12 +1,11 @@
 package com.yearup.dealership;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class DealershipFileManager {
+
     public static Dealership getDealership() {
-        Dealership dealership = new Dealership("TK Auto","111 Old Benbrook Rd","817-555-5555");
+        Dealership dealership = new Dealership("TK Auto", "111 Old Benbrook Rd", "817-555-5555");
         String filePath = "src/main/resources/inventory.csv";
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
@@ -27,7 +26,7 @@ public class DealershipFileManager {
                 double price = Double.parseDouble(tokens[7]);
 
                 //populate inventory with list of Vehicles
-                Vehicle vehicle = new Vehicle(vin,year,make,model,vehicleType,color,odometer,price);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
                 dealership.addVehicle(vehicle);
             }
             return dealership;
@@ -35,6 +34,23 @@ public class DealershipFileManager {
             throw new RuntimeException(e);
         }
     }
-    public void saveDealership () {
+
+    public static void saveDealership(Dealership dealership) {
+        try {
+            BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/inventory.csv"));
+
+            for (Vehicle vehicle : dealership.getAllVehicles()) {
+                //Format inventory entry and write to file
+                String inventoryEntry = String.format("%d|%d|%s|%s|%s|%s|%d|%.2f\n",vehicle.getVin(),vehicle.getYear(),vehicle.getMake(),vehicle.getModel(),vehicle.getVehicleType(),vehicle.getColor(), vehicle.getOdometer(),vehicle.getPrice());
+                bufWriter.write(inventoryEntry);
+            }
+
+            //Release file
+            bufWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+
 }
